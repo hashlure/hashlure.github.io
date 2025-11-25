@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jennifer Vega — 联系方式</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root {
+      --bg: #0b0c0e;
+      --fg: #eaeaea;
+      --muted: #9aa0a6;
+      --card: #111317;
+      --accent: #4f46e5;
+      --ring: #6d64ff33;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --fg: #111827;
+        --muted: #6b7280;
+        --card: #ffffff;
+        --accent: #4f46e5;
+        --ring: #4f46e520;
+      }
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 800px at 80% -10%, #4f46e510, transparent 60%),
+                  radial-gradient(1000px 600px at -10% 110%, #22d3ee10, transparent 60%),
+                  var(--bg);
+      color: var(--fg);
+    }
+
+    .wrap {
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 640px;
+      background: color-mix(in oklab, var(--card), transparent 0%);
+      backdrop-filter: blur(6px);
+      border: 1px solid color-mix(in oklab, var(--fg), transparent 85%);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px color-mix(in oklab, black, transparent 88%);
+      padding: 28px 28px 24px;
+      transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+    }
+    .card:focus-within, .card:hover {
+      border-color: color-mix(in oklab, var(--accent), transparent 70%);
+      box-shadow: 0 16px 50px var(--ring);
+      transform: translateY(-2px);
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), color-mix(in oklab, var(--accent), white 40%));
+      color: white;
+      font-weight: 700;
+      letter-spacing: .5px;
+      box-shadow: inset 0 0 20px #ffffff22;
+    }
+
+    .row { display: flex; gap: 18px; align-items: center; }
+
+    h1 {
+      font-size: clamp(22px, 4vw, 32px);
+      line-height: 1.2;
+      margin: 0 0 6px 0;
+    }
+    p.sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact {
+      margin-top: 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border: 1px solid color-mix(in oklab, var(--fg), transparent 85%);
+      border-radius: 14px;
+    }
+    .item a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .item a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    button.copy {
+      appearance: none;
+      border: 1px solid color-mix(in oklab, var(--fg), transparent 82%);
+      background: transparent;
+      color: var(--fg);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font: inherit;
+      cursor: pointer;
+      transition: border-color .15s ease, transform .06s ease;
+    }
+    button.copy:hover { border-color: color-mix(in oklab, var(--accent), transparent 60%); }
+    button.copy:active { transform: translateY(1px); }
+    .hint { color: var(--muted); font-size: 12px; margin-left: 2px; }
+
+    footer { margin-top: 20px; color: var(--muted); font-size: 12px; text-align: center; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card" aria-label="个人名片">
+      <div class="row">
+        <div class="avatar" aria-hidden="true" title="JV">JV</div>
+        <div>
+          <h1>Jennifer Vega</h1>
+          <p class="sub">欢迎联系我</p>
+        </div>
+      </div>
+
+      <div class="contact" role="list">
+        <div class="item" role="listitem">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z" opacity=".08"/><path d="M4 8l8 5 8-5"/><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+          <a id="emailLink" href="mailto:jason_gray90077@hotmail.com">jason_gray90077@hotmail.com</a>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="copy" id="copyBtn" aria-describedby="copyHint">复制邮箱</button>
+        <span class="hint" id="copyHint">一键复制以便粘贴</span>
+      </div>
+
+      <footer>© <span id="year"></span> Jennifer Vega</footer>
+    </section>
+  </main>
+
+  <script>
+    // 年份与复制功能
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const copyBtn = document.getElementById('copyBtn');
+    const email = document.getElementById('emailLink').textContent.trim();
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        const old = copyBtn.textContent;
+        copyBtn.textContent = '已复制 ✓';
+        setTimeout(() => copyBtn.textContent = old, 1400);
+      } catch {
+        alert('复制失败，请手动选择文本复制');
+      }
+    });
+  </script>
+</body>
+</html>
